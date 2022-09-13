@@ -10,8 +10,10 @@ import { Country } from '../../interfaces/pais.interface';
 })
 export class PorPaisComponent  {
 
+  
+
   termino : string = "";
-  hayError: boolean = false;
+  hayError: boolean = false; 
   paises  : Country[] = [];
 
   constructor(private paisService: PaisService) { }
@@ -30,7 +32,8 @@ export class PorPaisComponent  {
     this.hayError = true;
     this.paises = [];
   });
-
  }
-
+  sugerencias(termino: string) {
+    this.hayError = false;
+  }
 }
