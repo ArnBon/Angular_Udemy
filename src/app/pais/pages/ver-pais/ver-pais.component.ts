@@ -17,20 +17,17 @@ export class VerPaisComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute, 
-    private PaisService: PaisService
+    private paisService: PaisService
     ) { }
 
   ngOnInit(): void {
 
     this.activatedRoute.params
-      .pipe(
-        /*dentro de los paramentesis con pipe es donde se puede especificar cualquier 
-        cantidad de operadores que van a trabajar con el producto de este observable*/
-        switchMap( ( {id}) => this.PaisService.getPaisPorAlpha( id ) ),
+      .pipe(       
+        switchMap( ( {id}) => this.paisService.getPaisPorAlpha( id ) ),
         tap( console.log )    //imprime el valor del observable    
         ) 
-      .subscribe(pais =>
-         this.pais = pais[0]);
+      .subscribe(pais => this.pais = pais);
       console.log("cargando país");
       console.log(this.pais);
 
@@ -45,5 +42,6 @@ export class VerPaisComponent implements OnInit {
     // }); VAMOS A RESUMIR ESTE CODIGO VIDEO 115 RxJs SwitchMap
 
   }
-
+  /*dentro de los paramentesis con pipe es donde se puede especificar cualquier
+         cantidad de operadores que van a trabajar con el producto de este observable*/
 }
