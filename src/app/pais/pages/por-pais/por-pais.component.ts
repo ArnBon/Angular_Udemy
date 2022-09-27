@@ -16,6 +16,7 @@ export class PorPaisComponent  {
   hayError: boolean = false; 
   paises  : Country[] = [];
 
+  //se inyecta el servicio
   constructor(private paisService: PaisService) { }
 
  buscar(termino:string){
