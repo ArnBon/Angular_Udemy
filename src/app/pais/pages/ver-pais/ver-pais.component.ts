@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap } from "rxjs/operators";
+import { switchMap, tap } from "rxjs/operators";
 
 import { PaisService } from '../../services/pais.service';
+import { Country } from '../../interfaces/pais.interface';
 
 @Component({
   selector: 'app-ver-pais',
@@ -11,6 +12,8 @@ import { PaisService } from '../../services/pais.service';
   ]
 })
 export class VerPaisComponent implements OnInit {
+
+  pais!: Country;
 
   constructor(
     private activateRoute: ActivatedRoute, 
@@ -21,10 +24,11 @@ export class VerPaisComponent implements OnInit {
 
     this.activateRoute.params
       .pipe(
-        switchMap( ({ id }) => this.PaisService.getPaisPorAlpha(id) ) ) //dentro de los paramentesis con pipe es donde se puede especificar cualquier cantidad de operadores que van a trabajar con el producto de este observable
-      .subscribe(resp => {
-        console.log(resp);
-    });
+        switchMap( ({ id }) => this.PaisService.getPaisPorAlpha( id ) ),
+        tap(console.log) 
+        ) //dentro de los paramentesis con pipe es donde se puede especificar cualquier cantidad de operadores que van a trabajar con el producto de este observable
+        .subscribe( pais => this.pais = pais );
+    }
 
     // this.activateRoute.params
     // .subscribe( ({id}) =>  {
@@ -38,4 +42,4 @@ export class VerPaisComponent implements OnInit {
 
   }
 
-}
+
